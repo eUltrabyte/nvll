@@ -15,7 +15,7 @@ cd nvll && cmake .
 ```
 
 ### Bugs
-Bugs are reported to [issue tracker](https://github.com/eUltrabyte/uvke/issues)
+Bugs are reported to [issue tracker](https://github.com/eUltrabyte/nvll/issues)
 #### Report template
 ```
 Operating System:
