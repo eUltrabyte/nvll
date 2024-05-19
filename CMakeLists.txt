@@ -14,6 +14,8 @@ add_executable(${PROJECT_NAME}
     Source/Platform.cpp
     Source/Console.hpp
     Source/Console.cpp
+    Source/Command.hpp
+    Source/Command.cpp
     Source/nvll.hpp
     Source/nvll.cpp
     ${ICON}

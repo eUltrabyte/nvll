@@ -4,9 +4,12 @@ namespace nvll {
     Console::Console()
     : m_size({ 0, 0 }) {
         platform::SetupANSI();
+        m_size = platform::GetConsoleSize();
+        platform::SetTitle();
     }
     
     Console::~Console() {
+        platform::ClearANSI();
         platform::TerminateANSI();
     }
 
@@ -51,23 +54,11 @@ namespace nvll {
         std::cin.get();
     }
 
-    template<typename T>
-    T Console::Input() {
-        T value;
-        std::cin >> value;
-        return value;
+    void Console::Clear() {
+        std::cout << "\x1b[2J\x1b[H";
     }
 
-    int Console::Init() {
-        m_size = platform::GetConsoleSize();
-        platform::SetTitle();
-
-        Print("TODO: welcome banner\n");
-
-        Print("\t");
-
-        Pause();
-        platform::ClearANSI();
-        return 0;
+    vec2i& Console::GetSize() {
+        return m_size;
     }
 };

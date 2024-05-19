@@ -15,11 +15,16 @@ namespace nvll {
         virtual void Print(std::string_view message);
         virtual void Endl();
         virtual void Pause();
+        virtual void Clear();
 
         template<typename T>
-        T Input();
+        T Input() {
+            T value;
+            std::cin >> value;
+            return value;
+        }
 
-        virtual int Init();
+        virtual vec2i& GetSize();
 
     private:
         vec2i m_size;
