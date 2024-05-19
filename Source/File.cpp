@@ -2,6 +2,15 @@
 
 namespace nvll {
     namespace file {
+        void Create(std::string_view filename) {
+            std::ofstream file(filename.data());
+
+            if(file.is_open()) {
+                file << "nvll";
+                file.close();
+            }
+        }
+
         std::string Open(std::string_view filename) {
             std::string data;
             std::ifstream file(filename.data());
