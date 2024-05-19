@@ -7,6 +7,7 @@
 #include "Platform.hpp"
 #include "Console.hpp"
 #include "Command.hpp"
+#include "File.hpp"
 
 namespace nvll {
     enum State {
