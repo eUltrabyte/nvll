@@ -4,7 +4,7 @@ namespace nvll {
     CommandHandler::CommandHandler()
     : m_commands(std::vector<Command>()) { }
 
-    void CommandHandler::Check(std::string_view input) {
+    bool CommandHandler::Check(std::string_view input) {
         std::string command;
         for(const auto symbol : input) {
             command += std::tolower(symbol);
@@ -13,8 +13,11 @@ namespace nvll {
         for(auto i = 0; i < m_commands.size(); ++i) {
             if(m_commands[i].command.find(command) != std::string::npos) {
                 m_commands[i].function();
+                return true;
             }
         }
+
+        return false;
     }
 
     void CommandHandler::Push(const Command& command) {

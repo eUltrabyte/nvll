@@ -17,7 +17,7 @@ namespace nvll {
         CommandHandler();
         virtual ~CommandHandler() = default;
 
-        virtual void Check(std::string_view input);
+        virtual bool Check(std::string_view input);
         virtual void Push(const Command& command);
         virtual void Erase(unsigned int index);
 

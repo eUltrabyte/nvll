@@ -28,9 +28,17 @@ namespace nvll {
                     m_console->Print("\tExit - close program.\n");
 
                     m_console->Endl();
-                    for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
-                    m_console->Print("&d>> &r");
-                    m_handler->Check(m_console->Input<std::string>());
+
+                    while(true) {
+                        for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
+                        m_console->Print("&d>> &r");
+
+                        if(!m_handler->Check(m_console->Input<std::string>())) {
+                            m_console->Print("\tUnknown command, try again.\n");
+                        } else {
+                            break;
+                        }
+                    }
                 } break;
 
                 case State::New: {
@@ -48,12 +56,27 @@ namespace nvll {
                     for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
                     m_console->Print("&d>> &r");
 
-                    file::Create(m_console->Input<std::string>());
+                    std::ofstream file;
+                    file::Create(file, m_console->Input<std::string>());
+
+                    m_console->Print("\t&d>> &r");
+                    file::Add(file, m_console->Input<std::string>());
 
                     m_console->Endl();
-                    for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
-                    m_console->Print("&d>> &r");
-                    m_handler->Check(m_console->Input<std::string>());
+                    
+                    while(true) {
+                        for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
+                        m_console->Print("&d>> &r");
+
+                        std::string input = m_console->Input<std::string>();
+                        if(!m_handler->Check(input)) {
+                            m_console->Print("\tUnknown command, try again.\n");
+                        } else {
+                            break;
+                        }
+                    }
+
+                    file.close();
                 } break;
 
                 case State::Open: {
@@ -74,9 +97,17 @@ namespace nvll {
                     m_console->Print(file::Open(m_console->Input<std::string>()));
 
                     m_console->Endl();
-                    for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
-                    m_console->Print("&d>> &r");
-                    m_handler->Check(m_console->Input<std::string>());
+
+                    while(true) {
+                        for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
+                        m_console->Print("&d>> &r");
+
+                        if(!m_handler->Check(m_console->Input<std::string>())) {
+                            m_console->Print("\tUnknown command, try again.\n");
+                        } else {
+                            break;
+                        }
+                    }
                 } break;
 
                 case State::Help: {
@@ -88,14 +119,22 @@ namespace nvll {
                     m_console->Print("&dHelp&r\n");
                     m_console->Endl();
 
-                    m_console->Print("\t&7[&cx&7] &r- Done\n");
-                    m_console->Print("\t&7[&a-&7] &r- Work in progress\n");
+                    m_console->Print("\t&7[&ax&7] &r- Done\n");
+                    m_console->Print("\t&7[&c-&7] &r- Work in progress\n");
                     m_console->Print("\t&7[ ] &r- Todo.\n");
 
                     m_console->Endl();
-                    for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
-                    m_console->Print("&d>> &r");
-                    m_handler->Check(m_console->Input<std::string>());
+
+                    while(true) {
+                        for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
+                        m_console->Print("&d>> &r");
+
+                        if(!m_handler->Check(m_console->Input<std::string>())) {
+                            m_console->Print("\tUnknown command, try again.\n");
+                        } else {
+                            break;
+                        }
+                    }
                 } break;
 
                 case State::Exit: {
