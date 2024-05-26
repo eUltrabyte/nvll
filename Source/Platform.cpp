@@ -30,12 +30,18 @@ namespace nvll {
                 GetConsoleScreenBufferInfo(handle, &screenBufferInfo);
                 return vec2i { screenBufferInfo.srWindow.Right - screenBufferInfo.srWindow.Left + 1, screenBufferInfo.srWindow.Bottom - screenBufferInfo.srWindow.Top + 1 };
             #elif NVLL_UNIX
-                struct winsize size;
-                ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-                return vec2i { size.ws_row, size.ws_col };
+                #ifdef TIOCGSIZE
+                    struct ttysize size;
+                    ioctl(STDOUT_FILENO, TIOCGSIZE, &size);
+                    return vec2i { size.ts_cols, size.ts_lines };
+                #else
+                    struct winsize size;
+                    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+                    return vec2i { size.ws_col, size.ws_row };
+                #endif
             #endif
 
-            return vec2i { 0, 0 };
+            return vec2i { 80, 25 };
         }
 
         void SetTitle() {

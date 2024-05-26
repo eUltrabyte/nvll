@@ -8,6 +8,7 @@ namespace nvll {
         m_handler->Push({ "menu", [&]() { m_state = State::Menu; } });
         m_handler->Push({ "new", [&]() { m_state = State::New; } });
         m_handler->Push({ "open", [&]() { m_state = State::Open; } });
+        m_handler->Push({ "modify", [&]() { m_state = State::Modify; } });
         m_handler->Push({ "help", [&]() { m_state = State::Help; } });
         m_handler->Push({ "exit", [&]() { m_state = State::Exit; } });
 
@@ -22,10 +23,11 @@ namespace nvll {
                     m_console->Print("&dMenu&r\n");
                     m_console->Endl();
                        
-                    m_console->Print("\tNew &d<filename> &r- creates new todo file.\n");
-                    m_console->Print("\tOpen &d<filename> &r- opens todo file.\n");
-                    m_console->Print("\tHelp - show info about program.\n");
-                    m_console->Print("\tExit - close program.\n");
+                    m_console->Print("\t&rNew - creates new todo file.\n");
+                    m_console->Print("\t&rOpen - opens todo file.\n");
+                    m_console->Print("\t&rModify - opens and allows to modify todo file.\n");
+                    m_console->Print("\t&rHelp - show info about program.\n");
+                    m_console->Print("\t&rExit - close program.\n");
 
                     m_console->Endl();
 
@@ -60,7 +62,7 @@ namespace nvll {
                     file::Create(file, m_console->Input<std::string>());
 
                     m_console->Print("\t&d>> &r");
-                    file::Add(file, m_console->Input<std::string>());
+                    file::Add(file, m_console->InputLine());
 
                     m_console->Endl();
                     
@@ -89,6 +91,37 @@ namespace nvll {
                     m_console->Endl();
 
                     m_console->Print("\tEnter &d<filename> &rto open the file.\n");
+
+                    m_console->Endl();
+                    for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
+                    m_console->Print("&d>> &r");
+
+                    m_console->Print(file::Open(m_console->Input<std::string>()));
+
+                    m_console->Endl();
+
+                    while(true) {
+                        for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }
+                        m_console->Print("&d>> &r");
+
+                        if(!m_handler->Check(m_console->Input<std::string>())) {
+                            m_console->Print("\tUnknown command, try again.\n");
+                        } else {
+                            break;
+                        }
+                    }
+                } break;
+
+                case State::Modify: {
+                    m_console->Clear();
+
+                    PrintLogo();
+
+                    for(auto i = 0; i < (m_console->GetSize().x / 2) - 2; ++i) { m_console->Print(" "); }
+                    m_console->Print("&dModify&r\n");
+                    m_console->Endl();
+
+                    m_console->Print("\tEnter &d<filename> &rto modify the file.\n");
 
                     m_console->Endl();
                     for(auto i = 0; i < (m_console->GetSize().x / 2) - 13; ++i) { m_console->Print(" "); }

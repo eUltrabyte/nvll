@@ -24,6 +24,13 @@ namespace nvll {
             return value;
         }
 
+        virtual std::string InputLine() {
+            std::string line;
+            std::cin.ignore();
+            std::getline(std::cin, line);
+            return line;
+        }
+
         virtual vec2i& GetSize();
 
     private:

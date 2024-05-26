@@ -14,6 +14,7 @@ namespace nvll {
         Menu = 0,
         New,
         Open,
+        Modify,
         Help,
         Exit
     };
