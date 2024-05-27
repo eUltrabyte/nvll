@@ -29,7 +29,7 @@ namespace nvll {
                 void* handle = GetStdHandle(STD_OUTPUT_HANDLE);
                 GetConsoleScreenBufferInfo(handle, &screenBufferInfo);
                 return vec2i { screenBufferInfo.srWindow.Right - screenBufferInfo.srWindow.Left + 1, screenBufferInfo.srWindow.Bottom - screenBufferInfo.srWindow.Top + 1 };
-            #elif NVLL_UNIX
+            #else
                 #ifdef TIOCGSIZE
                     struct ttysize size;
                     ioctl(STDOUT_FILENO, TIOCGSIZE, &size);

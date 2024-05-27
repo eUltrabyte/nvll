@@ -61,8 +61,18 @@ namespace nvll {
                     std::ofstream file;
                     file::Create(file, m_console->Input<std::string>());
 
-                    m_console->Print("\t&d>> &r");
-                    file::Add(file, m_console->InputLine());
+                    while(true) {
+                        m_console->Print("\t&d>> &r");
+                        std::string line = m_console->InputLine() + "\n";
+
+                        if(line.find("~") != std::string::npos) {
+                            line.erase(line.find("~"));
+                            file::Add(file, line);
+                            break;
+                        }
+
+                        file::Add(file, line);
+                    }
 
                     m_console->Endl();
                     
